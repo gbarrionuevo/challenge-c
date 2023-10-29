@@ -1,0 +1,75 @@
+h2 {
+  margin: 20px 0;
+  font-size: 1.5em;
+}
+
+.content-container {
+  padding: 0 20px; // Combined left and right padding
+}
+
+.horizontal-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+
+  ion-list {
+    display: flex;
+
+    ion-item {
+      flex: 1;
+      white-space: nowrap;
+    }
+  }
+}
+
+.show-item {
+  position: relative;
+  margin: 10px;
+
+  img {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+}
+
+  .overlay-text {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+
+.genre {
+  &-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+  }
+  &-container {
+    margin-bottom: 15px;
+  }
+}
+
+.show-card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.show-image {
+  border-radius: 10px;
+  width: 100px;  /* Adjust as needed */
+  height: 150px; /* Adjust as needed */
+  object-fit: cover;
+}
+
+.show-name {
+  padding: 8px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 90%;  /* or whatever value that works for you */
+}

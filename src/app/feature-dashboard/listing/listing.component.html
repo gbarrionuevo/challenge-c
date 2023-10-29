@@ -1,0 +1,78 @@
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-header no-border>
+    <ion-toolbar>
+      <ion-title size="large">Tv Guide</ion-title>
+      <app-theme></app-theme>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar
+        show-clear-button="always"
+        [debounce]="1000"
+        (ionInput)="fetchShows($event)"
+        placeholder="Search"
+      ></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Display search results if available -->
+  <div *ngIf="searchResults && searchResults.length > 0">
+    <h2 class="genre-title">Search Results</h2>
+    <div class="horizontal-list">
+      <ion-list>
+        <ion-item
+          *ngFor="let res of searchResults"
+          [routerLink]="['/show', res.show.id]"
+          detail="false"
+        >
+          <ion-card>
+            <img
+              [src]="res.show.image.medium || 'assets/icons/no-image.svg'"
+              class="show-image"
+            />
+            <ion-card-header>
+              <ion-card-title>{{ res.show.name }}</ion-card-title>
+              <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <!-- Display a message if no search results -->
+  <div *ngIf="searchResults && searchResults.length < 0">
+    <p>No results found for your search.</p>
+  </div>
+
+  <!-- Display categorized shows if no search results -->
+  <div
+    class="content-container"
+    *ngIf="searchResults && searchResults.length <= 0"
+  >
+    <div class="genre-container" *ngFor="let genre of genres">
+      <h2 class="genre-title">{{ genre }}</h2>
+      <div class="horizontal-list">
+        <ion-list>
+          <ion-item
+            *ngFor="let show of showsByGenre(genre)"
+            tappable
+            (click)="goDetail(show.id)"
+            detail="false"
+          >
+            <div class="show-card">
+              <img
+                [src]="show.image?.medium || 'assets/icons/no-image.svg'"
+                class="show-image"
+              />
+              <div class="show-name">{{ show.name }}</div>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+  </div>
+</ion-content>
